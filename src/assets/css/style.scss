@@ -1,0 +1,167 @@
+@import 'basic.scss';
+
+.title {
+  color: var(--title);
+  text-align: center;
+}
+
+.description {
+  display: block;
+  color: var(--text);
+  text-align: center;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2rem;
+}
+
+.settingColumn {
+  position: relative;
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border: 0.1rem solid var(--title);
+  color: var(--title);
+
+  &::before {
+    content: attr(title);
+    position: absolute;
+    top: -1.8rem;
+    left: 1rem;
+    padding: 0 1rem;
+    background-color: var(--basic);
+    font-size: 2rem;
+  }
+
+  .headerColumn {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    .title {
+      flex: 0 0 100%;
+      text-align: left;
+    }
+    .details {
+      display: flex;
+      flex: 1;
+      flex-wrap: wrap;
+      @media #{$Medium} {
+        flex: 0 0 100%;
+      }
+      .firstTitle {
+        margin-left: 13rem;
+        @media #{$Medium} {
+          margin-left: 0;
+        }
+      }
+      .inputColumn {
+        flex: 0 0 100%;
+        label {
+          display: none;
+          @media #{$Medium} {
+            display: block;
+          }
+        }
+        &.firstLabel label {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .inputColumn {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    label {
+      display: inline-block;
+      width: 12.5rem;
+      margin-right: 0.5rem;
+      text-align: right;
+    }
+    &.radio {
+      input {
+        margin-right: 0.5rem;
+      }
+      span {
+        width: auto;
+        margin-right: 1rem;
+      }
+    }
+  }
+}
+
+.submitColumn {
+  display: flex;
+  flex: 0 0 100%;
+  margin-top: 1rem;
+  column-gap: 1.5rem;
+}
+
+.paperColumn {
+  display: flex;
+  justify-content: center;
+
+  .paperBorder {
+    overflow-x: auto;
+    border: 0.1rem solid #000;
+    background-color: #fff;
+
+    .paper {
+      .header {
+        align-items: flex-end;
+
+        .headerColumn {
+          overflow: hidden;
+          white-space: nowrap;
+
+          span {
+            display: inline-block;
+          }
+        }
+      }
+
+      .line {
+        span {
+          position: relative;
+
+          &:after,
+          &:first-child:before {
+            content: '';
+            position: absolute;
+            right: var(--dotRightPosition);
+            bottom: var(--dotBottomPosition);
+            width: var(--dotWidth);
+            height: var(--dotHeight);
+            border-radius: var(--dotRadius);
+            background-color: var(--color);
+          }
+
+          &:first-child:before {
+            display: var(--firstDot);
+            left: 0;
+          }
+
+          &:last-child:after {
+            display: var(--lastDot);
+            right: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+footer {
+  color: hsl(0deg 0% 50%);
+  font-size: 85%;
+  text-align: center;
+  a {
+    color: var(--text);
+  }
+}
