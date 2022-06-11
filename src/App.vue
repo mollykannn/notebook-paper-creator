@@ -16,7 +16,7 @@ const isDark = ref(useMode())
 const paper = ref(null)
 const exportImage = (action) => {
   html2canvas(paper.value, {
-    scale: 4,
+    scale: paperSetting.quality,
   }).then((canvas) => {
     const imgData = canvas.toDataURL('image/png', 1)
     if (action === 'png') {
@@ -49,28 +49,28 @@ const exportImage = (action) => {
     <div class="content">
       <div class="flex-1">
         <div class="settingColumn" title="paper">
-          <baseForm :columns="paperColumn" :data="paperSetting" />
+          <baseForm v-for="column in paperColumn" :key="column" :columns="column" v-model="paperSetting[column.name]" />
         </div>
         <div class="settingColumn" title="Content">
           <h3>Line:</h3>
-          <baseForm :columns="lineColumn" :data="lineSetting" />
+          <baseForm v-for="column in lineColumn" :key="column" :columns="column" v-model="lineSetting[column.name]" />
           <h3>Dot / Straight:</h3>
-          <baseForm :columns="dotColumn" :data="dotSetting" />
+          <baseForm v-for="column in dotColumn" :key="column" :columns="column" v-model="dotSetting[column.name]" />
         </div>
       </div>
 
       <div class="flex-2 settingColumn" title="Header">
         <span class="description">* 0.1 = 1px (eg: 4 = 40px)</span>
-        <baseForm :columns="headerColumn" :data="headerSetting" />
+        <baseForm v-for="column in headerColumn" :key="column" :columns="column" v-model="headerSetting[column.name]" />
         <div class="headerColumn">
           <h3 class="title">Column:</h3>
           <div v-for="(data, index) in headerSetting.column" class="details" v-bind:key="data.title">
             <h4 :class="index == 0 ? 'firstTitle' : ''">{{ data.title }}</h4>
-            <baseForm :columns="headerContentColumn(index)" :data="data" />
+            <baseForm v-for="column in headerContentColumn(index)" :key="column" :columns="column" v-model="data[column.name]" />
           </div>
         </div>
         <h3>Bottom Line:</h3>
-        <baseForm :columns="bottomLineColumn" :data="headerLineSetting" />
+        <baseForm v-for="column in bottomLineColumn" :key="column" :columns="column" v-model="headerLineSetting[column.name]" />
       </div>
       <div class="submitColumn mb-4">
         <button @click="exportImage('png')" class="flex-1">Export to PNG</button>

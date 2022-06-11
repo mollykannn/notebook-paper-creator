@@ -1,50 +1,42 @@
 <script setup>
-import { ref } from 'vue'
 import baseInput from './baseInput.vue'
 import baseSelectbox from './baseSelectbox.vue'
 import baseRadio from './baseRadio.vue'
 
-const props = defineProps({
+defineProps({
   columns: Object,
-  data: Object,
+  data: [String, Number],
 })
-const datas = ref(props.data)
+
+const emit = defineEmits(['update:modelValue'])
+
+const updateValue = (event) => {
+  let val = event.target.value
+  if (event.target.type === 'checkbox') val = event.target.checked
+  emit('update:modelValue', val)
+}
 </script>
 
 <template>
-  <template v-for="column in columns" v-bind:key="column.label">
-    <template v-if="column.type == 'radio'">
-      <baseRadio :label="column.label" :option="column.option" v-model="datas[column.name]" :class="column.class" />
-    </template>
-    <template v-else-if="column.type == 'selectbox'">
-      <baseSelectbox :label="column.label" :option="column.option" v-model="datas[column.name]" :class="column.class" />
-    </template>
-    <template v-else-if="['text', 'checkbox', 'color'].includes(column.type)">
-      <baseInput
-        :type="column.type"
-        :label="column.label"
-        v-model="datas[column.name]"
-        :class="column.class"
-        :disabled="column.disabled"
-        :lastText="column.lastText"
-      />
-    </template>
-      <template v-else-if="['number'].includes(column.type)">
-      <baseInput
-        :type="column.type"
-        :label="column.label"
-        v-model.number="datas[column.name]"
-        :class="column.class"
-        :disabled="column.disabled"
-        :lastText="column.lastText"
-        :step="column.step ?? 0.1"
-      />
-    </template>
-    <template v-else-if="column.type == 'hr'">
-      <hr class="mb-2" />
-    </template>
-    <template v-else-if="column.type == 'title'">
-      <h3>{{ column.label }}</h3>
-    </template>
+  <template v-if="['number', 'text', 'checkbox', 'color', 'radio', 'selectbox'].includes(columns.type)">
+    <component
+      :is="columns.type == 'radio' ? baseRadio : ['number', 'text', 'checkbox', 'color'].includes(columns.type) ? baseInput : baseSelectbox"
+      :type="columns.type == 'selectbox' ? '' : columns.type"
+      :label="columns.label"
+      :class="columns.class"
+      :disabled="columns?.disabled"
+      :option="columns.option"
+      :lastText="columns.lastText"
+      :step="columns.step ?? 0.1"
+      min="0"
+      v-bind="{ ...$attrs, onInput: updateValue }"
+      :value="data"
+    />
+  </template>
+  <template v-else-if="columns.type == 'hr'">
+    <hr class="mb-2" />
+  </template>
+  <template v-else-if="columns.type == 'title'">
+    <h3>{{ columns.label }}</h3>
   </template>
 </template>

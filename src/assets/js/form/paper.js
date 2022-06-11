@@ -14,6 +14,7 @@ export const paperColumn = [
     name: 'size',
     option: paperSize.reduce((oldVar, newVar) => ((oldVar[newVar.name] = newVar.name), oldVar), {}),
   },
+  { type: 'number', label: 'Quality', name: 'quality'},
   { type: 'number', label: 'Top Space', name: 'top' },
   { type: 'number', label: 'Bottom Space', name: 'bottom' },
 ]
@@ -48,6 +49,7 @@ export let paperSetting = reactive({
       dotSetting.number = data['dotNumber']
     },
   }),
+  quality: 8,
   width: computed(() => paperSize.find((e) => e.name === paperSetting.size).width),
   height: computed(() => paperSize.find((e) => e.name === paperSetting.size).height),
   BorderCSS: computed(() => {

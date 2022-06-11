@@ -36,7 +36,7 @@ export let dotSetting = reactive({
       '--dotWidth': `${dotSetting.width}rem`,
       '--dotHeight': dotSetting.style == 'straight' ? '100%' : `${dotSetting.height}rem`,
       '--dotBottomPosition': `-${
-        dotSetting.style == 'straight' ? 0 : ((dotSetting.height + lineSetting.underlineHeight) / 2) ?? 0
+        dotSetting.style == 'straight' ? 0 : (((parseFloat(dotSetting.height) + parseFloat(lineSetting.underlineHeight)) / 2) ?? 0)
       }rem`,
       '--dotRightPosition': `-${(dotSetting.width / 2) ?? 0}rem`,
       '--firstDot': dotSetting.firstDot ? 'block' : 'none',

@@ -38,7 +38,7 @@ export let lineSetting = reactive({
           paperSetting.top -
           paperSetting.bottom -
           headerLineSetting.height) /
-        lineSetting.number) ?? 0
+        Math.round(lineSetting.number)) ?? 0
       }rem`,
       'border-bottom': `${lineSetting.underlineHeight}rem`,
       'border-bottom-color': lineSetting.underlineColor,

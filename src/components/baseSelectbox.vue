@@ -2,6 +2,7 @@
 defineProps({
   option: Object,
   label: String,
+  type: String,
   id: String,
   modelValue: {
     type: [String, Number],
