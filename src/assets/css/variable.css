@@ -1,4 +1,4 @@
-@custom-media --extra-extra-large-small-viewport (max-width : 1400px);
+@custom-media --extra-extra-large-viewport (max-width : 1400px);
 @custom-media --extra-large-viewport (max-width : 1200px);
 @custom-media --large-viewport (max-width : 992px);
 @custom-media --medium-viewport (max-width : 768px);
