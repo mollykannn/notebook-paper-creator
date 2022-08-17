@@ -2,24 +2,57 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 import eslintPlugin from 'vite-plugin-eslint'
-import viteStylelint from '@amatlash/vite-plugin-stylelint'
-import path from 'path'
+import StylelintPlugin from 'vite-plugin-stylelint'
+import { fileURLToPath, URL } from 'node:url'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import postcssNested from 'postcss-nested'
+import postcssPresetEnv from 'postcss-preset-env';
 
 export default defineConfig({
   base: '/notebook-paper-creator',
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vue': ['vue'],
+          'jspdf': ['jspdf'],
+          'html2canvas': ['html2canvas']
+        }
+      },
+    },
+  },
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
   plugins: [
     vue(),
-    viteStylelint(),
+    AutoImport({
+      imports: ['vue',
+      {
+        'jspdf': ['jsPDF'],
+      }],
+      eslintrc: { enabled: true },
+      dirs: ['src/assets/js/**'],
+    }),
+    Components({
+      dirs: ['src/components'],
+      resolvers: [NaiveUiResolver()],
+    }),
+    StylelintPlugin({
+      fix: true,
+    }),
     eslintPlugin({
       include: ['src/**/*.vue', 'src/**/*.js'],
     }),
     VitePWA({
+      workbox: {
+        sourcemap: true,
+      },
       mode: 'development',
-      srcDir: 'src',
-      filename: 'sw.js',
       base: '/notebook-paper-creator/',
       registerType: 'autoUpdate',
-      strategies: 'injectManifest',
       includeAssets: ['favicon.ico', 'robots.txt', 'apple-touch-icon.png'],
       manifest: {
         name: 'Notebook Paper Creator',
@@ -57,17 +90,14 @@ export default defineConfig({
       },
     }),
   ],
-  server: {
-    hmr: {
-      overlay: false,
+  css: {
+    postcss: {
+      plugins: [postcssNested, postcssPresetEnv],
     },
   },
   resolve: {
-    alias: [
-      {
-        find: '@',
-        replacement: path.resolve(__dirname, 'src'),
-      },
-    ],
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
   },
 })

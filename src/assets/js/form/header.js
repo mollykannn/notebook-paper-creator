@@ -1,31 +1,8 @@
-import { computed, reactive } from "vue";
-import { option } from '@/assets/js/setting.js'
-
-export const headerColumn = computed(() => [
-  { type: 'checkbox', label: 'Show', name: 'header' },
-  { type: 'number', label: 'Height', name: 'height', disabled: !headerSetting.headerRef },
-  { type: 'number', label: 'Bottom Space', name: 'bottom' },
-  { type: 'number', label: 'Left Space', name: 'left' },
-  { type: 'number', label: 'Right Space', name: 'right' },
-  { type: 'number', label: 'Underline Height', name: 'underlineHeight' },
-  { type: 'selectbox', label: 'Underline Style', option: option.borderStyle, name: 'underlineStyle' },
-  { type: 'color', label: 'Underline Color', name: 'underlineColor' },
-])
-export const headerContentColumn = (index) => [
-  { type: 'selectbox', label: 'Visibility', option: option.visibility, name: 'visibility', class: headerSetting.columnClass(index) },
-  { type: 'number', label: 'Width', name: 'width', class: headerSetting.columnClass(index), lastText: '%' },
-  { type: 'selectbox', label: 'Align', option: option.align, name: 'align', class: headerSetting.columnClass(index) },
-  { type: 'text', label: 'Text', name: 'text', class: headerSetting.columnClass(index) },
-  { type: 'number', label: 'Font Size', name: 'fontSize', class: headerSetting.columnClass(index) },
-  { type: 'color', label: 'Font Color', name: 'fontColor', class: headerSetting.columnClass(index) },
-  { type: 'number', label: 'Text Line', name: 'textLine', class: headerSetting.columnClass(index) },
-  { type: 'number', label: 'Text Line Height', name: 'borderHeight', class: headerSetting.columnClass(index) },
-]
 export let headerSetting = reactive({
   headerRef: true,
   header: computed({
     get: () => headerSetting.headerRef,
-    set: (val) => {
+    set: val => {
       headerSetting.headerRef = val
       headerSetting.height = val ? 3 : 0
     },
@@ -37,11 +14,11 @@ export let headerSetting = reactive({
   bottom: 0.3,
   left: 2,
   right: 2,
-  columnClass: (index) => (index == 0 ? 'firstLabel' : ''),
+  columnClass: index => (index == 0 ? 'firstLabel' : ''),
   column: [
     {
       title: 'Left',
-      visibility: 'hidden',
+      visibility: false,
       width: 60,
       align: 'left',
       text: 'Title:',
@@ -54,7 +31,7 @@ export let headerSetting = reactive({
     },
     {
       title: 'Right',
-      visibility: 'visible',
+      visibility: false,
       width: 40,
       align: 'right',
       text: 'Date:',
@@ -66,16 +43,16 @@ export let headerSetting = reactive({
       borderHeight: 0.08,
     },
   ],
-  headerColumnCSS: (data) => {
+  headerColumnCSS: data => {
     return {
-      visibility: data.visibility,
+      visibility: data.visibility ? 'visible' : 'hidden',
       width: `${data.width}%`,
       color: data.fontColor,
       'font-size': `${data.fontSize}rem`,
       'text-align': data.align,
     }
   },
-  headerSpanCSS: (data) => {
+  headerSpanCSS: data => {
     return {
       width: `${data.textLine}rem`,
       'border-bottom': `${data.borderHeight}rem`,
@@ -94,5 +71,35 @@ export let headerSetting = reactive({
       'border-bottom-color': headerSetting.underlineColor,
       'border-bottom-style': headerSetting.underlineStyle,
     }
-  })
+  }),
+})
+
+export const headerContentColumn = index => ({
+  basic: [
+    { type: 'checkbox', label: '', name: 'visibility', placeholder: headerSetting.column[index].title, class: headerSetting.columnClass(index) },
+    { type: 'number', label: 'Width', name: 'width', class: headerSetting.columnClass(index), lastText: '%' },
+    { type: 'text', label: 'Text', name: 'text', class: headerSetting.columnClass(index) },
+  ],
+  details: [
+    { type: 'selectbox', label: 'Align', option: optionLabel('align'), name: 'align', class: headerSetting.columnClass(index) },
+    { type: 'number', label: 'Size', name: 'fontSize', class: headerSetting.columnClass(index) },
+    { type: 'color', label: 'Color', name: 'fontColor', class: headerSetting.columnClass(index) },
+    { type: 'number', label: 'Line Width', name: 'textLine', class: headerSetting.columnClass(index) },
+    { type: 'number', label: 'Line Height', name: 'borderHeight', class: headerSetting.columnClass(index), step: 0.01 },
+  ],
+})
+
+export const headerColumn = reactive({
+  basic: [
+    { type: 'checkbox', label: '', name: 'header', placeholder: 'Header:' },
+    { type: 'number', label: 'Height', name: 'height', disabled: computed(() => !headerSetting.headerRef) },
+    { type: 'color', label: 'Color', name: 'underlineColor' },
+  ],
+  details: [
+    { type: 'number', label: 'Bottom Space', name: 'bottom' },
+    { type: 'number', label: 'Left Space', name: 'left' },
+    { type: 'number', label: 'Right Space', name: 'right' },
+    { type: 'number', label: 'Line Height', name: 'underlineHeight', step: 0.01 },
+    { type: 'selectbox', label: 'Style', option: optionLabel('borderStyle'), name: 'underlineStyle' },
+  ],
 })

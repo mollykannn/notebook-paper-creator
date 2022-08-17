@@ -1,26 +1,14 @@
 <script setup>
 defineProps({
-  option: Object,
-  label: String,
-  type: String,
-  id: String,
+  option: Array,
   modelValue: {
     type: [String, Number],
     default: '',
   },
+  updateValue: Function,
 })
-const emit = defineEmits(['update:modelValue'])
-
-const updateValue = (event) => {
-  emit('update:modelValue', event.target.value)
-}
 </script>
 
 <template>
-  <div class="inputColumn">
-    <label v-if="label" :for="id">{{ label }}:</label>
-    <select v-bind="{ ...$attrs, onInput: updateValue }" :value="modelValue">
-      <option v-for="(data, index) in option" :value="index" v-bind:key="index">{{ data }}</option>
-    </select>
-  </div>
+  <n-select v-model="modelValue" :value="modelValue" v-bind="{ onUpdateValue: updateValue }" :options="option" />
 </template>

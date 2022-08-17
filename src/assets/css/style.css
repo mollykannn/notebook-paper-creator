@@ -1,4 +1,4 @@
-@import 'basic.scss';
+@import 'basic.css';
 
 .title {
   color: var(--title);
@@ -7,6 +7,8 @@
 
 .description {
   display: block;
+  flex: 0 0 100%;
+  margin-bottom: 1.5rem;
   color: var(--text);
   text-align: center;
 }
@@ -17,10 +19,42 @@
   column-gap: 2rem;
 }
 
+.leftColumn {
+  flex: 1.5;
+  @media (--large-viewport) {
+    flex: 0 0 100%;
+  }
+}
+
+.rightColumn {
+  flex: 1;
+  margin-top: 2rem;
+  @media (--large-viewport) {
+    flex: 0 0 100%;
+  }
+}
+
+.gridColumn {
+  flex: 1;
+  @media (--medium-viewport) {
+    flex: 0 0 100%;
+  }
+}
+
+.flexColumn {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 2.5rem;
+}
+
 .settingColumn {
+  display: flex;
   position: relative;
+  flex-wrap: wrap;
+  justify-content: center;
   margin-top: 2rem;
   padding: 1.5rem;
+  column-gap: 2rem;
   border: 0.1rem solid var(--title);
   color: var(--title);
 
@@ -38,59 +72,21 @@
     display: flex;
     flex-wrap: wrap;
     margin-bottom: 1rem;
+    column-gap: 2.5rem;
     .title {
       flex: 0 0 100%;
       text-align: left;
     }
     .details {
-      display: flex;
       flex: 1;
-      flex-wrap: wrap;
-      @media #{$Medium} {
+      @media (--medium-viewport) {
         flex: 0 0 100%;
       }
       .firstTitle {
         margin-left: 13rem;
-        @media #{$Medium} {
+        @media (--medium-viewport) {
           margin-left: 0;
         }
-      }
-      .inputColumn {
-        flex: 0 0 100%;
-        label {
-          display: none;
-          @media #{$Medium} {
-            display: block;
-          }
-        }
-        &.firstLabel label {
-          display: block;
-        }
-      }
-    }
-  }
-
-  .inputColumn {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.5rem;
-    &:last-child {
-      margin-bottom: 0;
-    }
-
-    label {
-      display: inline-block;
-      width: 12.5rem;
-      margin-right: 0.5rem;
-      text-align: right;
-    }
-    &.radio {
-      input {
-        margin-right: 0.5rem;
-      }
-      span {
-        width: auto;
-        margin-right: 1rem;
       }
     }
   }
@@ -155,6 +151,39 @@
       }
     }
   }
+}
+
+.basicFrom {
+  flex: 0 0 100%;
+}
+
+.n-checkbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.n-checkbox .n-checkbox__label {
+  color: var(--title);
+  font-size: 1.7rem;
+  font-weight: bold;
+}
+
+.details .n-checkbox .n-checkbox__label {
+  font-size: 1.4rem;
+}
+
+.n-form-item .n-form-item-label,
+.n-radio .n-radio__label {
+  color: var(--text);
+}
+
+.n-form-item .n-form-item-feedback-wrapper {
+  min-height: 1rem;
+}
+
+.n-form-item .n-form-item-blank {
+  min-height: 0;
 }
 
 footer {

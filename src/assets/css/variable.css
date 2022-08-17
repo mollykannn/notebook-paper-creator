@@ -1,7 +1,8 @@
-$Extra-large: "only screen and (max-width : 1200px)";
-$Large: "only screen and (max-width : 992px)";
-$Medium: "only screen and (max-width : 768px)";
-$Small: "only screen and (max-width : 650px)";
+@custom-media --extra-extra-large-small-viewport (max-width : 1400px);
+@custom-media --extra-large-viewport (max-width : 1200px);
+@custom-media --large-viewport (max-width : 992px);
+@custom-media --medium-viewport (max-width : 768px);
+@custom-media --small-viewport (max-width : 650px);
 
 * {
   --font: system-ui, -apple-system, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;

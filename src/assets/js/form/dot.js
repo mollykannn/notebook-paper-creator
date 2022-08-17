@@ -1,26 +1,18 @@
-import { computed, reactive } from "vue";
-import { option } from '@/assets/js/setting.js'
-import { lineSetting } from '@/assets/js/form/line.js'
-import { paperSetting } from '@/assets/js/form/paper.js'
-
-export const dotColumn = computed(() => [
-  { type: 'selectbox', label: 'Style', option: option.style, name: 'style' },
-  { type: 'checkbox', label: 'First Dot / Straight', name: 'firstDot' },
-  { type: 'checkbox', label: 'Last Dot / Straight', name: 'lastDot' },
-  { type: 'number', label: 'Width', name: 'width' },
-  { type: 'number', label: 'Height', name: 'height', disabled: dotSetting.style === 'straight' },
-  { type: 'number', label: 'Number of Dot / Straight', name: 'number', step: 1 },
-  { type: 'color', label: 'Color', name: 'color' },
-])
 export let dotSetting = reactive({
   styleRef: 'dot',
   style: computed({
     get: () => dotSetting.styleRef,
-    set: (val) => {
+    set: val => {
       dotSetting.styleRef = val
-      dotSetting.width = dotSetting.style == 'none' ? 0 : dotSetting.style == 'straight' ? 0.1 : 0.2
+      dotSetting.width = dotSetting.style == 'straight' ? 0.1 : 0.2
       dotSetting.firstDot = dotSetting.style == 'straight'
       dotSetting.lastDot = dotSetting.style == 'straight'
+    },
+  }),
+  checkboxDot: computed({
+    get: () => dotSetting.number !== 0,
+    set: val => {
+      dotSetting.number = !val ? 0 : 15
     },
   }),
   width: 0.2,
@@ -36,13 +28,27 @@ export let dotSetting = reactive({
       '--dotWidth': `${dotSetting.width}rem`,
       '--dotHeight': dotSetting.style == 'straight' ? '100%' : `${dotSetting.height}rem`,
       '--dotBottomPosition': `-${
-        dotSetting.style == 'straight' ? 0 : (((parseFloat(dotSetting.height) + parseFloat(lineSetting.underlineHeight)) / 2) ?? 0)
+        dotSetting.style == 'straight' ? 0 : (parseFloat(dotSetting.height) + parseFloat(lineSetting.underlineHeight)) / 2 ?? 0
       }rem`,
-      '--dotRightPosition': `-${(dotSetting.width / 2) ?? 0}rem`,
+      '--dotRightPosition': `-${dotSetting.width / 2 ?? 0}rem`,
       '--firstDot': dotSetting.firstDot ? 'block' : 'none',
       '--lastDot': dotSetting.lastDot ? 'block' : 'none',
       '--dotRadius': dotSetting.style == 'straight' ? '0%' : '50%',
     }
-  })
+  }),
+})
 
+export const dotColumn = reactive({
+  basic: [
+    { type: 'checkbox', label: '', name: 'checkboxDot', placeholder: 'Dot / Straight:' },
+    { type: 'selectbox', label: 'Style', option: optionLabel('style'), name: 'style' },
+    { type: 'number', label: 'Number', name: 'number', step: 1, disabled: computed(() => !dotSetting.checkboxDot) },
+    { type: 'color', label: 'Color', name: 'color' },
+  ],
+  details: [
+    { type: 'checkbox', label: 'Show first', name: 'firstDot' },
+    { type: 'checkbox', label: 'Show last', name: 'lastDot' },
+    { type: 'number', label: 'Width', name: 'width' },
+    { type: 'number', label: 'Height', name: 'height', disabled: dotSetting.style === 'straight' },
+  ],
 })

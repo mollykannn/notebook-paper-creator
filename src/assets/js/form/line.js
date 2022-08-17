@@ -1,24 +1,8 @@
-import { computed, reactive } from 'vue'
-import { option } from '@/assets/js/setting.js'
-import { paperSetting } from '@/assets/js/form/paper.js'
-import { headerSetting } from '@/assets/js/form/header.js'
-import { headerLineSetting } from '@/assets/js/form/headerLine.js'
-
-export const lineColumn = computed(() => [
-  { type: 'checkbox', label: 'Show', name: 'line' },
-  { type: 'number', label: 'Left Space', name: 'left' },
-  { type: 'number', label: 'Right Space', name: 'right' },
-  { type: 'number', label: 'Number of Line', name: 'number' },
-  { type: 'number', label: 'Line Height', name: 'underlineHeight', disabled: !lineSetting.line },
-  { type: 'selectbox', label: 'Line Style', option: option.borderStyle, name: 'underlineStyle' },
-  { type: 'color', label: 'Line Color', name: 'underlineColor' },
-])
-
 export let lineSetting = reactive({
   lineRef: true,
   line: computed({
     get: () => lineSetting.lineRef,
-    set: (val) => {
+    set: val => {
       lineSetting.lineRef = val
       lineSetting.underlineHeight = val ? 0.05 : 0
     },
@@ -33,12 +17,8 @@ export let lineSetting = reactive({
     return {
       display: 'flex',
       height: `${
-        ((paperSetting.height -
-          headerSetting.height -
-          paperSetting.top -
-          paperSetting.bottom -
-          headerLineSetting.height) /
-        Math.round(lineSetting.number)) ?? 0
+        (paperSetting.height - headerSetting.height - paperSetting.top - paperSetting.bottom - headerLineSetting.height) /
+          Math.round(lineSetting.number) ?? 0
       }rem`,
       'border-bottom': `${lineSetting.underlineHeight}rem`,
       'border-bottom-color': lineSetting.underlineColor,
@@ -51,4 +31,18 @@ export let lineSetting = reactive({
       'margin-right': `${lineSetting.right}rem`,
     }
   }),
+})
+
+export const lineColumn = reactive({
+  basic: [
+    { type: 'checkbox', label: '', name: 'line', placeholder: 'Line:' },
+    { type: 'number', label: 'Height', name: 'underlineHeight', step: 0.05, disabled: computed(() => !lineSetting.lineRef) },
+    { type: 'number', label: 'Number', name: 'number', step: 1 },
+    { type: 'color', label: 'Color', name: 'underlineColor' },
+  ],
+  details: [
+    { type: 'number', label: 'Left Space', name: 'left' },
+    { type: 'number', label: 'Right Space', name: 'right' },
+    { type: 'selectbox', label: 'Style', option: optionLabel('borderStyle'), name: 'underlineStyle' },
+  ],
 })

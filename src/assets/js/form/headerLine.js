@@ -1,13 +1,15 @@
-import { computed, reactive } from "vue";
-import { option } from '@/assets/js/setting.js'
+export const bottomLineColumn = reactive({
+  basic: [
+    { type: 'checkbox', label: '', name: 'headerLine', placeholder: 'Bottom Line:' },
+    { type: 'number', label: 'Height', name: 'height', disabled: computed(() => !headerLineSetting.headerLineRef) },
+    { type: 'color', label: 'Color', name: 'underlineColor' },
+  ],
+  details: [
+    { type: 'number', label: 'Line Height', name: 'underlineHeight', step: 0.01 },
+    { type: 'selectbox', label: 'Style', option: optionLabel('borderStyle'), name: 'underlineStyle' },
+  ],
+})
 
-export const bottomLineColumn = [
-  { type: 'checkbox', label: 'Show', name: 'headerLine' },
-  { type: 'number', label: 'Height', name: 'height' },
-  { type: 'number', label: 'Underline Height', name: 'underlineHeight' },
-  { type: 'selectbox', label: 'Underline Style', option: option.borderStyle, name: 'underlineStyle' },
-  { type: 'color', label: 'Underline Color', name: 'underlineColor' },
-]
 export let headerLineSetting = reactive({
   headerLineRef: true,
   headerLine: computed({

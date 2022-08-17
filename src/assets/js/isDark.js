@@ -1,5 +1,3 @@
-import { ref, computed } from "vue";
-
 export default function useMode() {
   const mode = ref(false);
   const isDark = computed({

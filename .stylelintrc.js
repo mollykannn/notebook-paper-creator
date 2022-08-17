@@ -6,8 +6,8 @@ module.exports = {
   plugins: ['stylelint-order'],
   overrides: [
     {
-      files: ['**/*.scss'],
-      customSyntax: 'postcss-scss',
+      files: ["**/*.css"],
+      customSyntax: "postcss-scss",
     },
     {
       files: ["*.vue", "**/*.vue"],
@@ -16,6 +16,6 @@ module.exports = {
   ],
   rules: {
     'order/properties-order': [sortOrderSmacss()],
-    'max-line-length': 150,
+    // 'max-line-length': 150,
   },
 }
