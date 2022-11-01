@@ -11,7 +11,7 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "naive-ui": "^2.33.3",
-    "vue": "^3.2.40"
+    "vue": "^3.2.41"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^3.1.0",
