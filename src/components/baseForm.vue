@@ -34,13 +34,13 @@ defineProps({
             />
           </template>
           <template v-else-if="column.type == 'radio'">
-            <AsyncRadio v-model="data[column.name]" :updateValue="val => (data[column.name] = val)" :option="column.option" />
+            <AsyncRadio v-model="data[column.name]" :updateValue="val => (data[column.name] = val)" :options="column.options" />
           </template>
           <template v-else-if="column.type == 'color'">
             <AsyncColor v-model="data[column.name]" :updateValue="val => (data[column.name] = val)" />
           </template>
-          <template v-else-if="column.type == 'selectbox'">
-            <AsyncSelectbox v-model="data[column.name]" :updateValue="val => (data[column.name] = val)" :option="column.option" />
+          <template v-else-if="column.type == 'select'">
+            <AsyncSelectbox v-model="data[column.name]" :updateValue="val => (data[column.name] = val)" :options="column.options" />
           </template>
           <template v-else-if="column.type == 'checkbox'">
             <AsyncCheckbox v-model="data[column.name]" :updateValue="val => (data[column.name] = val)" :placeholder="column.placeholder" />

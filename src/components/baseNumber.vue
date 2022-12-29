@@ -13,7 +13,6 @@ defineProps({
 <template>
   <NInputNumber
     v-bind="{ onUpdateValue: updateValue }"
-    v-model="modelValue"
     :value="modelValue"
     :style="{ flex: '0 0 100%' }"
     min="0"

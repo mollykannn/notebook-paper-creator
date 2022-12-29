@@ -10,7 +10,7 @@ defineProps({
 </script>
 
 <template>
-  <n-checkbox v-model="modelValue" :checked="modelValue" v-bind="{ onUpdateChecked: updateValue }">
+  <n-checkbox :checked="modelValue" v-bind="{ onUpdateChecked: updateValue }">
     {{ placeholder }}
   </n-checkbox>
 </template>

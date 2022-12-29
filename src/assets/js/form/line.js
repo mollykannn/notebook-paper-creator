@@ -43,6 +43,6 @@ export const lineColumn = reactive({
   details: [
     { type: 'number', label: 'Left Space', name: 'left' },
     { type: 'number', label: 'Right Space', name: 'right' },
-    { type: 'selectbox', label: 'Style', option: optionLabel('borderStyle'), name: 'underlineStyle' },
+    { type: 'select', label: 'Style', options: optionLabel('borderStyle'), name: 'underlineStyle' },
   ],
 })

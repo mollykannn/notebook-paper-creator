@@ -9,5 +9,5 @@ defineProps({
 </script>
 
 <template>
-  <n-color-picker v-model:value="modelValue" v-bind="{ onUpdateValue: updateValue }" :show-preview="true" :show-alpha="false" />
+  <n-color-picker :value="modelValue" v-bind="{ onUpdateValue: updateValue }" :show-preview="true" :show-alpha="false" />
 </template>

@@ -6,7 +6,7 @@ export const bottomLineColumn = reactive({
   ],
   details: [
     { type: 'number', label: 'Line Height', name: 'underlineHeight', step: 0.01 },
-    { type: 'selectbox', label: 'Style', option: optionLabel('borderStyle'), name: 'underlineStyle' },
+    { type: 'select', label: 'Style', options: optionLabel('borderStyle'), name: 'underlineStyle' },
   ],
 })
 

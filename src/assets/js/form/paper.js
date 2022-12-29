@@ -1,10 +1,10 @@
 export const paperColumn = {
   basic: [
   {
-    type: 'selectbox',
+    type: 'select',
     label: 'Size',
     name: 'size',
-    option: paperSize.map(e => ({ label: e.name, value: e.name })),
+    options: paperSize.map(e => ({ label: e.name, value: e.name })),
   },
   { type: 'number', label: 'Quality', name: 'quality', step: 1, max: 8}],
   details: [

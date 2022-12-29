@@ -41,7 +41,7 @@ export let dotSetting = reactive({
 export const dotColumn = reactive({
   basic: [
     { type: 'checkbox', label: '', name: 'checkboxDot', placeholder: 'Dot / Straight:' },
-    { type: 'selectbox', label: 'Style', option: optionLabel('style'), name: 'style' },
+    { type: 'select', label: 'Style', options: optionLabel('style'), name: 'style' },
     { type: 'number', label: 'Number', name: 'number', step: 1, disabled: computed(() => !dotSetting.checkboxDot) },
     { type: 'color', label: 'Color', name: 'color' },
   ],

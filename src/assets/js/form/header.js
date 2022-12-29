@@ -81,7 +81,7 @@ export const headerContentColumn = index => ({
     { type: 'text', label: 'Text', name: 'text', class: headerSetting.columnClass(index) },
   ],
   details: [
-    { type: 'selectbox', label: 'Align', option: optionLabel('align'), name: 'align', class: headerSetting.columnClass(index) },
+    { type: 'select', label: 'Align', options: optionLabel('align'), name: 'align', class: headerSetting.columnClass(index) },
     { type: 'number', label: 'Size', name: 'fontSize', class: headerSetting.columnClass(index) },
     { type: 'color', label: 'Color', name: 'fontColor', class: headerSetting.columnClass(index) },
     { type: 'number', label: 'Line Width', name: 'textLine', class: headerSetting.columnClass(index) },
@@ -100,6 +100,6 @@ export const headerColumn = reactive({
     { type: 'number', label: 'Left Space', name: 'left' },
     { type: 'number', label: 'Right Space', name: 'right' },
     { type: 'number', label: 'Line Height', name: 'underlineHeight', step: 0.01 },
-    { type: 'selectbox', label: 'Style', option: optionLabel('borderStyle'), name: 'underlineStyle' },
+    { type: 'select', label: 'Style', options: optionLabel('borderStyle'), name: 'underlineStyle' },
   ],
 })

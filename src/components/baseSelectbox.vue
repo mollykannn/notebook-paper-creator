@@ -1,6 +1,6 @@
 <script setup>
 defineProps({
-  option: Array,
+  options: Array,
   modelValue: {
     type: [String, Number],
     default: '',
@@ -10,5 +10,5 @@ defineProps({
 </script>
 
 <template>
-  <n-select v-model="modelValue" :value="modelValue" v-bind="{ onUpdateValue: updateValue }" :options="option" />
+  <n-select :value="modelValue" v-bind="{ onUpdateValue: updateValue }" :options="options" />
 </template>
